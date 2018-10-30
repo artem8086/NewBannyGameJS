@@ -7,6 +7,9 @@ uglify = require('gulp-uglify-es').default
 clean = require 'gulp-clean'
 rollup = require 'gulp-rollup'
 copy = require 'gulp-copy'
+sourcemaps = require 'gulp-sourcemaps'
+
+
 
 gulp.task 'assets', ->
 	gulp.src 'assets/**/*.*'
@@ -19,37 +22,40 @@ gulp.task 'connect', ->
 		livereload: on
 		root: './dist'
 
-gulp.task 'jade', ->
+gulp.task 'jade', (done) ->
 	gulp.src 'jade/*.jade'
-		.pipe do jade
+		.pipe jade()
+			.on 'error', console.log
 		.pipe gulp.dest 'dist'
 		.pipe do connect.reload
 
-gulp.task 'stylus', ->
+gulp.task 'stylus', (done) ->
 	gulp.src 'stylus/*.styl'
-		.pipe stylus compress: on
+		.pipe stylus(compress: on)
+			.on 'error', console.log
 		.pipe gulp.dest 'dist/css'
 		.pipe do connect.reload
 
-gulp.task 'build', ['coffee'], ->
-	gulp.src 'js/*.js'
-		.pipe rollup
-			input: 'js/main.js'
+gulp.task 'build', (done) ->
+	gulp.src 'coffee/**/*.coffee'
+		.pipe do sourcemaps.init
+		.pipe coffee()
+			.on 'error', console.log
+		.pipe rollup(
+			input: 'coffee/main.js'
 			output:
 				format: 'cjs'
 				intro: '(function(){'
 				outro: '})();'
-		.pipe do uglify
+			).on 'error', console.log
+		.pipe uglify()
+			.on 'error', console.log
+		.pipe do sourcemaps.write
 		.pipe gulp.dest 'dist/js'
 		.pipe do connect.reload
 
-	gulp.src 'js/', read: no
+	gulp.src 'coffee/**/*.js', read: no
 		.pipe do clean
-
-gulp.task 'coffee', ->
-	gulp.src 'coffee/**/*.coffee'
-		.pipe do coffee
-		.pipe gulp.dest 'js'
 
 gulp.task 'watch', ->
 	gulp.watch 'jade/**/*.jade', ['jade']
