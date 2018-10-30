@@ -1,0 +1,1 @@
+"use strict";function world(){return console.log("world")}var Test,test;(test=new(Test=class{do(){return console.log("hello")}})).do(),console.log("hello"),world();
