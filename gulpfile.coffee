@@ -35,7 +35,10 @@ gulp.task 'build', ['coffee'], ->
 	gulp.src 'js/*.js'
 		.pipe rollup
 			input: 'js/main.js'
-			output: format: 'cjs'
+			output:
+				format: 'cjs'
+				intro: '(function(){'
+				outro: '})();'
 		.pipe do uglify
 		.pipe gulp.dest 'dist/js'
 		.pipe do connect.reload
