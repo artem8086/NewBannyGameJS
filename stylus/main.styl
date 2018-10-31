@@ -1,2 +1,19 @@
-h1
-	text-transform uppercase
+@import 'helpers/*'
+
+@import 'anims/*'
+
+body
+	overflow hidden
+
+.status
+	position absolute
+	top 60px
+	left 60px
+	padding 10px
+	background-color rgba(1, 1, 1, 0.3)
+	border-radius 10px
+	pointer-events none
+	&__info
+		padding 3px 0
+		color red
+		font-size 22px

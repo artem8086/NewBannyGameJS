@@ -1,9 +1,18 @@
-doctype
-head
+extends blocks/layout-default
+
+block head
 	title New Banny Game
 	meta(charset='utf-8')
 
 	link(rel='stylesheet' href='css/main.css')
-body
-	h1 New Banny Game
+
+block content
+	svg.mainCanvas(xmlns="http://www.w3.org/2000/svg" version="1.1")
+	+b.status
+		+e.info Нажми чтобы добавить зайца
+		+e.info FPS: #[span.js-fps]
+		+e.info Зайцев: #[span.js-banny]
+
+	script(src='js/jquery.min.js')
+	script(src='js/snap.svg-min.js')
 	script(src='js/main.js')

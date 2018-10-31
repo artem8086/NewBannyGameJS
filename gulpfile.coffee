@@ -10,11 +10,9 @@ copy = require 'gulp-copy'
 sourcemaps = require 'gulp-sourcemaps'
 
 
-
 gulp.task 'assets', ->
 	gulp.src 'assets/**/*.*'
-		.pipe copy '.'
-		.pipe gulp.dest 'dist'
+		.pipe copy 'dist/', prefix: 1
 
 gulp.task 'connect', ->
 	connect.server

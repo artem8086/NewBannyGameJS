@@ -1,0 +1,23 @@
+.banny
+	.hand_r
+	.leg_r
+		animation rot_anim 1s infinite ease-in-out
+	.hand_l
+	.leg_l
+		animation rot_anim_inv 1s infinite ease-in-out
+
+@keyframes rot_anim
+	from
+		transform rotate(-10deg)
+	50%
+		transform rotate(10deg)
+	to
+		transform rotate(-10deg)
+
+@keyframes rot_anim_inv
+	from
+		transform rotate(10deg)
+	50%
+		transform rotate(-10deg)
+	to
+		transform rotate(10deg)
